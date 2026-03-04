@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import {VowelShift, ContantShift,SpeakChineseForEmDerek} from './assets/Algos'
+import {VowelShift, ConsonantShift,SpeakChineseForEmDerek} from './assets/Algos'
 import './App.css'
 
 const algoMap = {
   "Vowel Shift":VowelShift,
-  "Contant Shift":ContantShift,
+  "Consonant Shift":ConsonantShift,
   "Speak Chinese for 'em Derek":SpeakChineseForEmDerek
 }
 

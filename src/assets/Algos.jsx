@@ -20,6 +20,8 @@ export function VowelShift({textIn = "", setTextOut = () => {}}) {
   const [vowelShift, setVowelShift] = useState(1);
   const vowels = "aeiou"
 
+  // splits, processes each one to see if its in the 
+  // list and koves it up the index the specified amount.
   function vowShiftFunct(strIn){
 
     return strIn.split('').map((char) => {
@@ -58,10 +60,12 @@ export function VowelShift({textIn = "", setTextOut = () => {}}) {
   )
 }
 
-export function ContantShift({textIn = "", setTextOut = () => {}}) {
+export function ConsonantShift({textIn = "", setTextOut = () => {}}) {
   const [consShift, setConsShift] = useState(1);
   const cons = "bcdfghjklmnpqrstvwxyz"
 
+  // same as above, splits, processes each one to see if its in the 
+  // list and koves it up the index the specified amount.
   function vowShiftFunct(strIn){
 
     return strIn.split('').map((char) => {
@@ -101,6 +105,16 @@ export function ContantShift({textIn = "", setTextOut = () => {}}) {
 }
 
 export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}}) {
+
+  const translationTable = {
+    "a":"人",
+    'b':'丑',
+    'c':'汇',
+    'e':'丰',
+    't':'丆',
+    'x':'㐅',
+    'y':'丫',
+  }
 
   function encFunc(strIn){
 

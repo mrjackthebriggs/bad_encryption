@@ -35,7 +35,7 @@
 .algo-select{
   border:2px white solid;
   margin:20px;
-  border-radius: 20% 20%;
+  border-radius: 20px;
 }
 
 @keyframes logo-spin {
