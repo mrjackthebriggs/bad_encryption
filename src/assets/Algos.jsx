@@ -2,14 +2,26 @@ import { useState, useEffect } from 'react'
 
 export function VowelShift({textIn = "", setTextOut = () => {}}) {
   const [vowelShift, setVowelShift] = useState(1);
+  const vowels = "aeiou"
 
   function vowShiftFunct(strIn){
-    strIn.replace()
+
+    return strIn.split('').map((char) => {
+      if(!vowels.includes(char.toLowerCase())){
+        return char;
+      }
+
+      const isUpperCase = char == char.toUpperCase();
+      
+      const newChar = vowels.at((vowels.indexOf(char.toLowerCase()) + vowelShift) % vowels.length)
+
+      return isUpperCase ? newChar.toUpperCase() : newChar;
+    }).join('');
   }
   
   useEffect(() => {
-    setTextOut("poop");
-  }, [textIn]);
+    setTextOut(vowShiftFunct(textIn));
+  }, [textIn,vowelShift]);
   return (
     <div className='algo-settings'>
       <label>
@@ -18,10 +30,10 @@ export function VowelShift({textIn = "", setTextOut = () => {}}) {
         type='number'
         value={vowelShift}
         onChange={(e) => {
-          const val = e.target.value;
+          const val = parseInt(e.target.value);
 
-          if (val <= 5 && val > 0){
-            setVowelShift(e.target.value);
+          if (val < vowels.length && val >= 0){
+            setVowelShift(val);
           }   
         }}
         />
@@ -31,16 +43,43 @@ export function VowelShift({textIn = "", setTextOut = () => {}}) {
 }
 
 export function ContantShift({textIn = "", setTextOut = () => {}}) {
+  const [consShift, setConsShift] = useState(1);
+  const cons = "bcdfghjklmnpqrstvwxyz"
 
-  useEffect(() => {
-    setTextOut("pee");
-  }, [textIn]);
+  function vowShiftFunct(strIn){
+
+    return strIn.split('').map((char) => {
+      if(!cons.includes(char.toLowerCase())){
+        return char;
+      }
+
+      const isUpperCase = char == char.toUpperCase();
+      
+      const newChar = cons.at((cons.indexOf(char.toLowerCase()) + consShift) % cons.length)
+
+      return isUpperCase ? newChar.toUpperCase() : newChar;
+    }).join('');
+  }
   
+  useEffect(() => {
+    setTextOut(vowShiftFunct(textIn));
+  }, [textIn,consShift]);
   return (
-    <>
-      <h3>
-      Contant Shift
-      </h3>
-    </>
+    <div className='algo-settings'>
+      <label>
+        Shift Vowel:
+        <input
+        type='number'
+        value={consShift}
+        onChange={(e) => {
+          const val = parseInt(e.target.value);
+
+          if (val < cons.length && val >= 0){
+            setConsShift(val);
+          }   
+        }}
+        />
+      </label>
+    </div>
   )
 }
