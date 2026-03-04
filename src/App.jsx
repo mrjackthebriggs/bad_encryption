@@ -22,7 +22,7 @@ function App() {
       </h1>
       <div className="textbox text-in">
         <p>Text in</p>
-        <input type="text" 
+        <textarea type="textarea" 
         placeholder='Put message here'
         value={textIn}
         onChange={(e) => setTextIn(e.target.value)}
@@ -47,8 +47,7 @@ function App() {
       
       <div className="textbox text-out">
         <p>Text out</p>
-        <p>'{textOut}'</p>
-        <input type="text" 
+        <textarea type="text" 
         readOnly 
         value={textOut}
         placeholder='Will output here'
