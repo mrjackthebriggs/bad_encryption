@@ -38,6 +38,15 @@
   border-radius: 20px;
 }
 
+.selectboxes{
+  display:flex;
+  margin: 20px;
+}
+
+.selectboxes > select{
+  margin: 10px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

@@ -10,6 +10,7 @@ const algoMap = {
 
 function App() {
   const [algo, setAlgo] = useState("Vowel Shift");
+  const [decrypt, setDecrypt] = useState(false);
 
   const SelectedComponenent = algoMap[algo];
 
@@ -30,19 +31,30 @@ function App() {
         />
       </div>
       <div className="algo-select">
-        <select 
-        value={algo}
-        onChange={(e) => {
-          setAlgo(e.target.value)
-        }}
-        >
-          {Object.keys(algoMap).map((k) => (
-          <option key={k} value={k}>{k}</option>   
-        ))}
-        </select>
+        <div className="selectboxes">
+          <select 
+          value={algo}
+          onChange={(e) => {
+            setAlgo(e.target.value)
+          }}
+          >
+            {Object.keys(algoMap).map((k) => (
+            <option key={k} value={k}>{k}</option>   
+          ))}
+          </select>
+          <select 
+          value={decrypt}
+          onChange={(e) => setDecrypt((e.target.value === 'true'))}
+          >
+            <option value={false}>Encrypt</option>
+            <option value={true}>Decrypt</option>
+          </select>
+        </div>
+        
         <SelectedComponenent 
         textIn={textIn}
         setTextOut={setTextOut}
+        decrypt={decrypt}
         />
       </div>
       

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-function template({textIn = "", setTextOut = () => {}}) {
+function template({textIn = "", setTextOut = () => {}, decrypt = false}) {
 
   function encFunc(strIn){
 
@@ -9,14 +9,14 @@ function template({textIn = "", setTextOut = () => {}}) {
   
   useEffect(() => {
     setTextOut(encFunc(textIn));
-  }, [textIn]);
+  }, [textIn,decrypt]);
   return (
     <div className='algo-settings'>
     </div>
   )
 }
 
-export function VowelShift({textIn = "", setTextOut = () => {}}) {
+export function VowelShift({textIn = "", setTextOut = () => {}, decrypt = false}) {
   const [vowelShift, setVowelShift] = useState(1);
   const vowels = "aeiou"
 
@@ -31,7 +31,7 @@ export function VowelShift({textIn = "", setTextOut = () => {}}) {
 
       const isUpperCase = char == char.toUpperCase();
       
-      const newChar = vowels.at((vowels.indexOf(char.toLowerCase()) + vowelShift) % vowels.length)
+      const newChar = vowels.at((vowels.indexOf(char.toLowerCase()) + (decrypt ? -vowelShift : vowelShift)) % vowels.length)
 
       return isUpperCase ? newChar.toUpperCase() : newChar;
     }).join('');
@@ -39,7 +39,7 @@ export function VowelShift({textIn = "", setTextOut = () => {}}) {
   
   useEffect(() => {
     setTextOut(vowShiftFunct(textIn));
-  }, [textIn,vowelShift]);
+  }, [textIn,vowelShift,decrypt]);
   return (
     <div className='algo-settings'>
       <label>
@@ -60,7 +60,7 @@ export function VowelShift({textIn = "", setTextOut = () => {}}) {
   )
 }
 
-export function ConsonantShift({textIn = "", setTextOut = () => {}}) {
+export function ConsonantShift({textIn = "", setTextOut = () => {}, decrypt = false}) {
   const [consShift, setConsShift] = useState(1);
   const cons = "bcdfghjklmnpqrstvwxyz"
 
@@ -75,7 +75,7 @@ export function ConsonantShift({textIn = "", setTextOut = () => {}}) {
 
       const isUpperCase = char == char.toUpperCase();
       
-      const newChar = cons.at((cons.indexOf(char.toLowerCase()) + consShift) % cons.length)
+      const newChar = cons.at((cons.indexOf(char.toLowerCase()) + (decrypt ? -consShift : consShift)) % cons.length)
 
       return isUpperCase ? newChar.toUpperCase() : newChar;
     }).join('');
@@ -83,7 +83,7 @@ export function ConsonantShift({textIn = "", setTextOut = () => {}}) {
   
   useEffect(() => {
     setTextOut(vowShiftFunct(textIn));
-  }, [textIn,consShift]);
+  }, [textIn,consShift,decrypt]);
   return (
     <div className='algo-settings'>
       <label>
@@ -104,9 +104,9 @@ export function ConsonantShift({textIn = "", setTextOut = () => {}}) {
   )
 }
 
-export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}}) {
+export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}, decrypt = false}) {
 
-  const translationTable = {
+  let translationTable = {
     "a":"氏",
     'b':'丑',
     'c':'汇',
@@ -137,9 +137,17 @@ export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}}) {
 
   function encFunc(strIn){
 
+    if(decrypt){
+      const temp_obj = {}
+      Object.keys(translationTable).map((k) => {
+        temp_obj[translationTable[k]] = k;
+      })
+
+      translationTable = temp_obj;
+    }
+
     return strIn.split('').map((i) => {
       if (!(i.toLowerCase() in translationTable)){
-        console.log(i);
         return i;
       }
 
@@ -149,14 +157,14 @@ export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}}) {
   
   useEffect(() => {
     setTextOut(encFunc(textIn));
-  }, [textIn]);
+  }, [textIn,decrypt]);
   return (
     <div className='algo-settings'>
     </div>
   )
 }
 
-export function EmojiTranslate({textIn = "", setTextOut = () => {}}) {
+export function EmojiTranslate({textIn = "", setTextOut = () => {}, decrypt = false}) {
 
   function encFunc(strIn){
 
@@ -165,7 +173,7 @@ export function EmojiTranslate({textIn = "", setTextOut = () => {}}) {
   
   useEffect(() => {
     setTextOut(encFunc(textIn));
-  }, [textIn]);
+  }, [textIn,decrypt]);
   return (
     <div className='algo-settings'>
     </div>
