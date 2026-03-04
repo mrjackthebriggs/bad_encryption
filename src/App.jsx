@@ -1,33 +1,59 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {VowelShift, ContantShift} from './assets/Algos'
 import './App.css'
 
+const algoMap = {
+  "Vowel Shift":VowelShift,
+  "Contant Shift":ContantShift
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [algo, setAlgo] = useState("Vowel Shift");
+
+  const SelectedComponenent = algoMap[algo];
+
+  const [textIn, setTextIn] = useState('');
+  const [textOut, setTextOut] = useState('');
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1 className="title"
+      >BaD eNCRYPTioN
+      </h1>
+      <div className="textbox text-in">
+        <p>Text in</p>
+        <input type="text" 
+        placeholder='Put message here'
+        value={textIn}
+        onChange={(e) => setTextIn(e.target.value)}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="algo-select">
+        <select 
+        value={algo}
+        onChange={(e) => {
+          setAlgo(e.target.value)
+        }}
+        >
+          {Object.keys(algoMap).map((k) => (
+          <option key={k} value={k}>{k}</option>   
+        ))}
+        </select>
+        <SelectedComponenent 
+        textIn={textIn}
+        setTextOut={setTextOut}
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      
+      <div className="textbox text-out">
+        <p>Text out</p>
+        <p>'{textOut}'</p>
+        <input type="text" 
+        readOnly 
+        value={textOut}
+        placeholder='Will output here'
+        />
+      </div>
     </>
   )
 }

@@ -1,6 +1,8 @@
 # Bad Encryption
 This is a react program that currently runs on web only.
 
+This houses multiple joke encryption algorithms. updated whenever I feel like.
+
 ## React Compiler
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
