@@ -87,7 +87,7 @@ export function ConsonantShift({textIn = "", setTextOut = () => {}}) {
   return (
     <div className='algo-settings'>
       <label>
-        Shift Vowel:
+        Shift Consonant:
         <input
         type='number'
         value={consShift}
