@@ -1,5 +1,21 @@
 import { useState, useEffect } from 'react'
 
+function template({textIn = "", setTextOut = () => {}}) {
+
+  function encFunc(strIn){
+
+    return strIn;
+  }
+  
+  useEffect(() => {
+    setTextOut(encFunc(textIn));
+  }, [textIn]);
+  return (
+    <div className='algo-settings'>
+    </div>
+  )
+}
+
 export function VowelShift({textIn = "", setTextOut = () => {}}) {
   const [vowelShift, setVowelShift] = useState(1);
   const vowels = "aeiou"
@@ -80,6 +96,38 @@ export function ContantShift({textIn = "", setTextOut = () => {}}) {
         }}
         />
       </label>
+    </div>
+  )
+}
+
+export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}}) {
+
+  function encFunc(strIn){
+
+    return strIn;
+  }
+  
+  useEffect(() => {
+    setTextOut(encFunc(textIn));
+  }, [textIn]);
+  return (
+    <div className='algo-settings'>
+    </div>
+  )
+}
+
+export function EmojiTranslate({textIn = "", setTextOut = () => {}}) {
+
+  function encFunc(strIn){
+
+    return strIn;
+  }
+  
+  useEffect(() => {
+    setTextOut(encFunc(textIn));
+  }, [textIn]);
+  return (
+    <div className='algo-settings'>
     </div>
   )
 }
