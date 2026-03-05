@@ -107,18 +107,44 @@ export function ConsonantShift({textIn = "", setTextOut = () => {}}) {
 export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}}) {
 
   const translationTable = {
-    "a":"人",
+    "a":"氏",
     'b':'丑',
     'c':'汇',
-    'e':'丰',
-    't':'丆',
-    'x':'㐅',
+    'd':'',
+    'e':'乇',
+    'f':'下',
+    'g':'沰',
+    'h':'牝',
+    'i':'个',
+    'j':'丿',
+    'k':'长',
+    'l':'乚',
+    'm':'爪',
+    'n':"九",
+    'o':'囙',
+    'p':'沪',
+    'q':'中',
+    'r':'伬',
+    's':'互',
+    't':'亇',
+    'u':'凵',
+    'v':'丩',
+    'w':'屲',
+    'x':'义',
     'y':'丫',
+    'z':'之'
   }
 
   function encFunc(strIn){
 
-    return strIn;
+    return strIn.split('').map((i) => {
+      if (!(i.toLowerCase() in translationTable)){
+        console.log(i);
+        return i;
+      }
+
+      return translationTable[i.toLowerCase()]
+    }).join('');
   }
   
   useEffect(() => {
