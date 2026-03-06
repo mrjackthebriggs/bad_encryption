@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
 
-function template({textIn = "", setTextOut = () => {}, decrypt = false}) {
-
-  function encFunc(strIn){
+function encFunc(strIn){
 
     return strIn;
-  }
+}
+function template({textIn = "", setTextOut = () => {}, decrypt = false}) {
   
   useEffect(() => {
     setTextOut(encFunc(textIn));
@@ -16,29 +15,30 @@ function template({textIn = "", setTextOut = () => {}, decrypt = false}) {
   )
 }
 
+// splits, processes each one to see if its in the 
+// list and koves it up the index the specified amount.
+//exported for testing reasons
+export function vowShiftFunct(strIn, decrypt, shift, vowels){
+
+  return strIn.split('').map((char) => {
+    if(!vowels.includes(char.toLowerCase())){
+      return char;
+    }
+
+    const isUpperCase = char == char.toUpperCase();
+    
+    const newChar = vowels.at((vowels.indexOf(char.toLowerCase()) + (decrypt ? -shift : shift)) % vowels.length)
+
+    return isUpperCase ? newChar.toUpperCase() : newChar;
+  }).join('');
+}
+
 export function VowelShift({textIn = "", setTextOut = () => {}, decrypt = false}) {
   const [vowelShift, setVowelShift] = useState(1);
   const vowels = "aeiou"
-
-  // splits, processes each one to see if its in the 
-  // list and koves it up the index the specified amount.
-  function vowShiftFunct(strIn){
-
-    return strIn.split('').map((char) => {
-      if(!vowels.includes(char.toLowerCase())){
-        return char;
-      }
-
-      const isUpperCase = char == char.toUpperCase();
-      
-      const newChar = vowels.at((vowels.indexOf(char.toLowerCase()) + (decrypt ? -vowelShift : vowelShift)) % vowels.length)
-
-      return isUpperCase ? newChar.toUpperCase() : newChar;
-    }).join('');
-  }
   
   useEffect(() => {
-    setTextOut(vowShiftFunct(textIn));
+    setTextOut(vowShiftFunct(textIn, decrypt, vowelShift, vowels));
   }, [textIn,vowelShift,decrypt]);
   return (
     <div className='algo-settings'>
@@ -60,29 +60,31 @@ export function VowelShift({textIn = "", setTextOut = () => {}, decrypt = false}
   )
 }
 
+
+// same as above, splits, processes each one to see if its in the 
+// list and koves it up the index the specified amount.
+// exported for testing
+export function constShiftFunct(strIn, decrypt, shift, cons){
+
+  return strIn.split('').map((char) => {
+    if(!cons.includes(char.toLowerCase())){
+      return char;
+    }
+
+    const isUpperCase = char == char.toUpperCase();
+    
+    const newChar = cons.at((cons.indexOf(char.toLowerCase()) + (decrypt ? -shift : shift)) % cons.length)
+
+    return isUpperCase ? newChar.toUpperCase() : newChar;
+  }).join('');
+}
+
 export function ConsonantShift({textIn = "", setTextOut = () => {}, decrypt = false}) {
   const [consShift, setConsShift] = useState(1);
   const cons = "bcdfghjklmnpqrstvwxyz"
-
-  // same as above, splits, processes each one to see if its in the 
-  // list and koves it up the index the specified amount.
-  function vowShiftFunct(strIn){
-
-    return strIn.split('').map((char) => {
-      if(!cons.includes(char.toLowerCase())){
-        return char;
-      }
-
-      const isUpperCase = char == char.toUpperCase();
-      
-      const newChar = cons.at((cons.indexOf(char.toLowerCase()) + (decrypt ? -consShift : consShift)) % cons.length)
-
-      return isUpperCase ? newChar.toUpperCase() : newChar;
-    }).join('');
-  }
   
   useEffect(() => {
-    setTextOut(vowShiftFunct(textIn));
+    setTextOut(constShiftFunct(textIn, decrypt, consShift, cons));
   }, [textIn,consShift,decrypt]);
   return (
     <div className='algo-settings'>
@@ -104,38 +106,37 @@ export function ConsonantShift({textIn = "", setTextOut = () => {}, decrypt = fa
   )
 }
 
-export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}, decrypt = false}) {
 
-  let translationTable = {
-    "a":"氏",
-    'b':'丑',
-    'c':'汇',
-    'd':'',
-    'e':'乇',
-    'f':'下',
-    'g':'沰',
-    'h':'牝',
-    'i':'个',
-    'j':'丿',
-    'k':'长',
-    'l':'乚',
-    'm':'爪',
-    'n':"九",
-    'o':'囙',
-    'p':'沪',
-    'q':'中',
-    'r':'伬',
-    's':'互',
-    't':'亇',
-    'u':'凵',
-    'v':'丩',
-    'w':'屲',
-    'x':'义',
-    'y':'丫',
-    'z':'之'
-  }
+export function speakChineeseFunct(strIn,decrypt){
 
-  function encFunc(strIn){
+    let translationTable = {
+      "a":"氏",
+      'b':'丑',
+      'c':'汇',
+      'd':'口',
+      'e':'乇',
+      'f':'下',
+      'g':'沰',
+      'h':'牝',
+      'i':'个',
+      'j':'丿',
+      'k':'长',
+      'l':'乚',
+      'm':'爪',
+      'n':"九",
+      'o':'囙',
+      'p':'沪',
+      'q':'中',
+      'r':'伬',
+      's':'互',
+      't':'亇',
+      'u':'凵',
+      'v':'丩',
+      'w':'屲',
+      'x':'义',
+      'y':'丫',
+      'z':'之'
+    }
 
     if(decrypt){
       const temp_obj = {}
@@ -155,8 +156,10 @@ export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}, decr
     }).join('');
   }
   
+export function SpeakChineseForEmDerek({textIn = "", setTextOut = () => {}, decrypt = false}) {
+  
   useEffect(() => {
-    setTextOut(encFunc(textIn));
+    setTextOut(speakChineeseFunct(textIn, decrypt));
   }, [textIn,decrypt]);
   return (
     <div className='algo-settings'>
